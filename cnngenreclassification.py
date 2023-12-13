@@ -8,7 +8,7 @@ Original file is located at
 
 # Genre Classification CNN Model with Data Augmentation
 """
-
+import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -235,9 +235,6 @@ plt.show()
 
 """# GUI for Genre Classification"""
 
-import streamlit as st
-import librosa
-import numpy as np
 from tensorflow.keras.models import load_model
 
 # Load your trained model
