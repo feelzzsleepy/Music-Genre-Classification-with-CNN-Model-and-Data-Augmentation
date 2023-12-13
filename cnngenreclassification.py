@@ -442,5 +442,3 @@ def main():
 # Run the app
 if __name__ == "__main__":
     main()
-
-!streamlit run /usr/local/lib/python3.10/dist-packages/colab_kernel_launcher.py
