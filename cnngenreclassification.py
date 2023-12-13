@@ -8,6 +8,7 @@ Original file is located at
 
 # Genre Classification CNN Model with Data Augmentation
 """
+!pip install matplotlib
 import streamlit as st
 import pandas as pd
 import numpy as np
