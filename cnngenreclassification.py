@@ -238,8 +238,9 @@ tf.compat.v1.keras.backend.set_session(sess)
 from tensorflow.keras.models import load_model
 
 # Load your trained model
-model = load_model('musicgenreclassification.h5')  # Replace with the actual model file
-
+# model = load_model('musicgenreclassification.h5')  # Replace with the actual model file
+model_url = "https://github.com/feelzzsleepy/Music-Genre-Classification-with-CNN-Model-and-Data-Augmentation/edit/main/cnngenreclassification.py/musicgenreclassification.h5"
+model = load_model(model_url)
 # Function to preprocess audio and make predictions
 def classify_genre(audio_path):
     # Load and preprocess the audio file
