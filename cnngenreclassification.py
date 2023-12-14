@@ -24,8 +24,7 @@ from sklearn.preprocessing import LabelEncoder
 import tensorflow as tf
 from tensorflow import keras
 import IPython
-import requests
-from io import BytesIO
+
 
 # Seed value
 seed_value = 1
@@ -240,11 +239,8 @@ tf.compat.v1.keras.backend.set_session(sess)
 from tensorflow.keras.models import load_model
 
 # Load your trained model
-# model = load_model('musicgenreclassification.h5')  # Replace with the actual model file
-model_url = "https://github.com/feelzzsleepy/Music-Genre-Classification-with-CNN-Model-and-Data-Augmentation/raw/main/musicgenreclassification.h5"
-response = requests.get(model_url)
-model_bytes = BytesIO(response.content)
-model = load_model(model_bytes)
+model = load_model('musicgenreclassification.h5')  # Replace with the actual model file
+
 # Function to preprocess audio and make predictions
 def classify_genre(audio_path):
     # Load and preprocess the audio file
