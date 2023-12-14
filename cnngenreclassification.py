@@ -296,6 +296,9 @@ def load_training_data():
     # Reshape the input data
     X_train_reshaped = X_train[feature_columns].to_numpy()
 
+    # Convert the data to float32 to ensure compatibility with TensorFlow
+    X_train_reshaped = X_train_reshaped.astype('float32')
+
     return X_train_reshaped
 
 # Load or define X_train before the main function
