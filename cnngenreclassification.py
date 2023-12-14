@@ -266,11 +266,13 @@ def classify_genre(audio_path, X_train):
     # Extract MFCC features
     num_coefficients = X_train.shape[1]  # Replace with the actual number of coefficients
 
-    mfcc = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=num_coefficients)
+    mfcc = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=num_coefficients).T  # Transpose the features
 
     # Pad or truncate the features to match the expected input shape
-    if mfcc.shape[1] < X_train.shape[1]:
-        mfcc = np.pad(mfcc, ((0, 0), (0, X_train.shape[1] - mfcc.shape[1])))
+    if mfcc.shape[0] < X_train.shape[1]:
+        mfcc = np.pad(mfcc, ((0, X_train.shape[1] - mfcc.shape[0]), (0, 0)))
+    elif mfcc.shape[0] > X_train.shape[1]:
+        mfcc = mfcc[:X_train.shape[1], :]
 
     # Make predictions using your model
     prediction = model.predict(np.expand_dims(mfcc, axis=0))
