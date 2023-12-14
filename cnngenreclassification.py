@@ -245,11 +245,27 @@ model = load_model('cnngenreclassification.h5', compile=False) # New Model Chang
 
 # Function to preprocess audio and make predictions
 
+# def classify_genre(audio_path):
+#     # Load and preprocess the audio file
+#     data, sr = librosa.load(audio_path, sr=None)  # Load with original sample rate
+#     mfcc = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=X_train.shape[1]).T
+    
+#     # Make predictions using your model
+#     prediction = model.predict(np.expand_dims(mfcc, axis=0))
+
+#     # Map predictions to genre names (adjust as needed)
+#     genre_mapping = {0: 'Blues', 1: 'Jazz', 2: 'Rock', 3: 'Pop', 4: 'Hip-Hop'}
+#     predicted_genre = genre_mapping[np.argmax(prediction)]
+
+#     return predicted_genre
+# New Function to preprocess audio (hope it works)
 def classify_genre(audio_path):
     # Load and preprocess the audio file
-    data, sr = librosa.load(audio_path, sr=None)  # Load with original sample rate
-    mfcc = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=X_train.shape[1]).T
-    
+    data, sr = librosa.load(audio_path)
+
+    # Extract MFCC features
+    mfcc = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=your_desired_number_of_coefficients).T
+
     # Make predictions using your model
     prediction = model.predict(np.expand_dims(mfcc, axis=0))
 
