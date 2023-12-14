@@ -276,6 +276,8 @@ def classify_genre(audio_path, X_train):
 
     return predicted_genre
 
+X_train = ...  # Load or define X_train here
+
 # Streamlit app
 def main():
     st.title("Music Genre Classifier")
@@ -287,7 +289,7 @@ def main():
         st.audio(uploaded_file, format="audio/wav", start_time=0)
 
         # Perform genre classification
-        predicted_genre = classify_genre(uploaded_file, X_train) #adding X_Train to train the audio
+        predicted_genre = classify_genre(uploaded_file, X_train)
         st.write(f"Predicted Genre: {predicted_genre}")
 
 # Run the app
