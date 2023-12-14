@@ -239,7 +239,9 @@ tf.compat.v1.keras.backend.set_session(sess)
 from tensorflow.keras.models import load_model
 
 # Load your trained model
-model = load_model('musicgenreclassification.h5')  # Replace with the actual model file
+# model = load_model('musicgenreclassification.h5')  # Replace with the actual model file
+
+model = load_model('musicgenreclassification.h5', custom_objects={'<custom_layer>': <CustomLayerClass>}, compile=False)
 
 # Function to preprocess audio and make predictions
 
