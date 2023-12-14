@@ -46,104 +46,104 @@ session_conf = tf.compat.v1.ConfigProto(intra_op_parallelism_threads=1, inter_op
 sess = tf.compat.v1.Session(graph=tf.compat.v1.get_default_graph(), config=session_conf)
 tf.compat.v1.keras.backend.set_session(sess)
 
-# Dataset path
-path_dataset = "/content/drive/MyDrive/Colab Notebooks/Dataset GTZAN/features_30_sec.csv"
-df = pd.read_csv(path_dataset)
+# # Dataset path
+# path_dataset = "/content/drive/MyDrive/Colab Notebooks/Dataset GTZAN/features_30_sec.csv"
+# df = pd.read_csv(path_dataset)
 
-# Display the first 1000 rows of the DataFrame
-df.head(1000)
+# # Display the first 1000 rows of the DataFrame
+# df.head(1000)
 
-# Display the shape and data types of the DataFrame
-print(df.shape)
-print(df.dtypes)
+# # Display the shape and data types of the DataFrame
+# print(df.shape)
+# print(df.dtypes)
 
-# Drop the 'filename' column from the DataFrame
-df = df.drop(labels='filename', axis=1)
+# # Drop the 'filename' column from the DataFrame
+# df = df.drop(labels='filename', axis=1)
 
-def load_and_augment_audio(file_path, augment=False):
-    audio, sr = librosa.load(file_path)
+# def load_and_augment_audio(file_path, augment=False):
+#     audio, sr = librosa.load(file_path)
 
-    if augment:
-        # Apply data augmentation
-        stretched_audio = librosa.effects.time_stretch(audio, rate=1.2)
-        pitch_shifted_audio = librosa.effects.pitch_shift(audio, sr=sr, n_steps=2)
-        noisy_audio = audio + 0.005 * np.random.randn(len(audio))
+#     if augment:
+#         # Apply data augmentation
+#         stretched_audio = librosa.effects.time_stretch(audio, rate=1.2)
+#         pitch_shifted_audio = librosa.effects.pitch_shift(audio, sr=sr, n_steps=2)
+#         noisy_audio = audio + 0.005 * np.random.randn(len(audio))
 
-        return audio, sr, stretched_audio, pitch_shifted_audio, noisy_audio
-    else:
-        return audio, sr
+#         return audio, sr, stretched_audio, pitch_shifted_audio, noisy_audio
+#     else:
+#         return audio, sr
 
-# Example audio file path
-audio_recording = "/content/drive/MyDrive/Colab Notebooks/Dataset GTZAN/genres_original/blues/blues.00005.wav"
+# # Example audio file path
+# audio_recording = "/content/drive/MyDrive/Colab Notebooks/Dataset GTZAN/genres_original/blues/blues.00005.wav"
 
-# Load and display original audio
-data, sr = load_and_augment_audio(audio_recording, augment=False)
-Audio(data, rate=sr)
+# # Load and display original audio
+# data, sr = load_and_augment_audio(audio_recording, augment=False)
+# Audio(data, rate=sr)
 
-# Load and display augmented audio
-augmented_data, _, _, _, _ = load_and_augment_audio(audio_recording, augment=True)
-Audio(augmented_data, rate=sr)
+# # Load and display augmented audio
+# augmented_data, _, _, _, _ = load_and_augment_audio(audio_recording, augment=True)
+# Audio(augmented_data, rate=sr)
 
-# Display waveform plot for original audio
-plt.figure(figsize=(12, 4))
-librosa.display.waveshow(data, color="#2B4F75")
-plt.show()
+# # Display waveform plot for original audio
+# plt.figure(figsize=(12, 4))
+# librosa.display.waveshow(data, color="#2B4F75")
+# plt.show()
 
-# Display waveform plot for augmented audio
-plt.figure(figsize=(12, 4))
-librosa.display.waveshow(augmented_data, color="#FF5733")
-plt.show()
+# # Display waveform plot for augmented audio
+# plt.figure(figsize=(12, 4))
+# librosa.display.waveshow(augmented_data, color="#FF5733")
+# plt.show()
 
-# Compute Short-Time Fourier Transform (STFT)
-stft = librosa.stft(data)
-stft_db = librosa.amplitude_to_db(abs(stft))
+# # Compute Short-Time Fourier Transform (STFT)
+# stft = librosa.stft(data)
+# stft_db = librosa.amplitude_to_db(abs(stft))
 
-# Display spectrogram
-plt.figure(figsize=(14, 6))
-librosa.display.specshow(stft_db, sr=sr, x_axis='time', y_axis='hz')
-plt.title("Short-Time Fourier Transform (STFT)")
-plt.colorbar()
+# # Display spectrogram
+# plt.figure(figsize=(14, 6))
+# librosa.display.specshow(stft_db, sr=sr, x_axis='time', y_axis='hz')
+# plt.title("Short-Time Fourier Transform (STFT)")
+# plt.colorbar()
 
-# Compute Chroma features
-chroma = librosa.feature.chroma_stft(y=data, sr=sr)
+# # Compute Chroma features
+# chroma = librosa.feature.chroma_stft(y=data, sr=sr)
 
-# Display Chroma features
-plt.figure(figsize=(16, 6))
-librosa.display.specshow(chroma, sr=sr, x_axis='time', y_axis='chroma', cmap='coolwarm')
-plt.colorbar()
-plt.title("Chroma Features")
-plt.show()
+# # Display Chroma features
+# plt.figure(figsize=(16, 6))
+# librosa.display.specshow(chroma, sr=sr, x_axis='time', y_axis='chroma', cmap='coolwarm')
+# plt.colorbar()
+# plt.title("Chroma Features")
+# plt.show()
 
-# Zoom in on a section of the data
-start = 1000
-end = 1200
+# # Zoom in on a section of the data
+# start = 1000
+# end = 1200
 
-# Extract the zoomed-in section
-data_zoom = data[start:end]
+# # Extract the zoomed-in section
+# data_zoom = data[start:end]
 
-# Calculate the new time axis
-time_zoom = np.linspace(0, (end - start) / sr, len(data_zoom))
+# # Calculate the new time axis
+# time_zoom = np.linspace(0, (end - start) / sr, len(data_zoom))
 
-# Plot the zoomed-in section
-plt.figure(figsize=(14, 5))
-plt.plot(time_zoom, data_zoom, color="#2B4F72")
-plt.grid()
-plt.xlabel("Time (s)")
-plt.ylabel("Amplitude")
-plt.title("Zoomed-in Signal Section")
-plt.show()
+# # Plot the zoomed-in section
+# plt.figure(figsize=(14, 5))
+# plt.plot(time_zoom, data_zoom, color="#2B4F72")
+# plt.grid()
+# plt.xlabel("Time (s)")
+# plt.ylabel("Amplitude")
+# plt.title("Zoomed-in Signal Section")
+# plt.show()
 
-# Calculate zero-crossings
-zero_cross_rate = librosa.zero_crossings(data[start:end], pad=False)
-print("The number of zero-crossings is:", sum(zero_cross_rate))
+# # Calculate zero-crossings
+# zero_cross_rate = librosa.zero_crossings(data[start:end], pad=False)
+# print("The number of zero-crossings is:", sum(zero_cross_rate))
 
-# Extract class labels and encode them
-class_list = df.iloc[:, -1]
-convertor = LabelEncoder()
-y = convertor.fit_transform(class_list)
+# # Extract class labels and encode them
+# class_list = df.iloc[:, -1]
+# convertor = LabelEncoder()
+# y = convertor.fit_transform(class_list)
 
 # Display DataFrame except the last column
-print(df.iloc[:, :-1])
+# print(df.iloc[:, :-1])
 
 # Standardize features using StandardScaler
 from sklearn.preprocessing import StandardScaler
