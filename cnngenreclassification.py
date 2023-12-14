@@ -276,10 +276,12 @@ def classify_genre(audio_path, X_train):
 
     return predicted_genre
 
-# Assuming you have a function to load or define X_train
+# Function to load or define X_train
 def load_training_data():
     # Your actual code to load or define X_train
-    X_train, _ = load_data()  # Replace with your actual code
+    # For example, reading from a CSV file:
+    df = pd.read_csv('features_30_sec.csv')
+    X_train, _ = train_test_split(df, test_size=0.2, random_state=42)
     return X_train
 
 # Streamlit app
@@ -298,6 +300,12 @@ def main():
         # Perform genre classification
         predicted_genre = classify_genre(uploaded_file, X_train)
         st.write(f"Predicted Genre: {predicted_genre}")
+
+# Assuming you have a function to load or define X_train
+def load_data():
+    # Your actual code to load or define X_train
+    X_train, _ = load_training_data()  # Replace with your actual code
+    return X_train
 
 # Run the app
 if __name__ == "__main__":
