@@ -264,7 +264,8 @@ def classify_genre(audio_path):
     data, sr = librosa.load(audio_path)
 
     # Extract MFCC features
-    mfcc = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=your_desired_number_of_coefficients).T
+    num_coefficients = X_train.shape[1]  # Replace with the actual number of coefficients
+    mfcc = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=num_coefficients).T
 
     # Make predictions using your model
     prediction = model.predict(np.expand_dims(mfcc, axis=0))
