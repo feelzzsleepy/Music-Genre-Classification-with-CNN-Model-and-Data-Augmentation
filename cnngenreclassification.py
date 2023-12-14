@@ -290,9 +290,11 @@ def load_training_data():
     df = pd.read_csv('features_30_sec.csv')
     X_train, _ = train_test_split(df, test_size=0.2, random_state=42)
 
+    # Extract the feature columns (excluding the target column)
+    feature_columns = X_train.columns[:-1]
+
     # Reshape the input data
-    num_frames, num_coefficients = X_train.shape[1], X_train.shape[2]
-    X_train_reshaped = X_train.reshape((X_train.shape[0], num_frames * num_coefficients))
+    X_train_reshaped = X_train[feature_columns].to_numpy()
 
     return X_train_reshaped
 
