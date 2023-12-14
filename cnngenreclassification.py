@@ -290,10 +290,10 @@ def load_training_data():
     df = pd.read_csv('features_30_sec.csv')
     X_train, _ = train_test_split(df, test_size=0.2, random_state=42)
 
-    # Extract the feature columns (excluding the target column)
-    feature_columns = X_train.columns[:-1]
+    # Exclude non-numeric columns (e.g., filenames)
+    feature_columns = X_train.select_dtypes(include=['float32', 'float64']).columns
 
-    # Reshape the input data
+    # Extract the feature columns (excluding the target column)
     X_train_reshaped = X_train[feature_columns].to_numpy()
 
     # Convert the data to float32 to ensure compatibility with TensorFlow
