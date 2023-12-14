@@ -275,7 +275,8 @@ def classify_genre(audio_path, X_train):
         mfcc = mfcc[:X_train.shape[1], :]
 
     # Make predictions using your model
-    prediction = model.predict(np.expand_dims(mfcc, axis=0))
+    # prediction = model.predict(np.expand_dims(mfcc, axis=0))
+    prediction = model.predict(X_train)
 
     # Map predictions to genre names (adjust as needed)
     genre_mapping = {0: 'Blues', 1: 'Jazz', 2: 'Rock', 3: 'Pop', 4: 'Hip-Hop'}
@@ -285,11 +286,18 @@ def classify_genre(audio_path, X_train):
 
 # Function to load or define X_train
 def load_training_data():
-    # Your actual code to load or define X_train
-    # For example, reading from a CSV file:
+    # Your actual code to load or generate X_train
     df = pd.read_csv('features_30_sec.csv')
     X_train, _ = train_test_split(df, test_size=0.2, random_state=42)
-    return X_train
+
+    # Reshape the input data
+    num_frames, num_coefficients = X_train.shape[1], X_train.shape[2]
+    X_train_reshaped = X_train.reshape((X_train.shape[0], num_frames * num_coefficients))
+
+    return X_train_reshaped
+
+# Load or define X_train before the main function
+X_train = load_training_data()
 
 # Streamlit app
 def main():
