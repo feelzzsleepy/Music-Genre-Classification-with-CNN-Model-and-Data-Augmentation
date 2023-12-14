@@ -150,56 +150,56 @@ tf.compat.v1.keras.backend.set_session(sess)
 # fit = StandardScaler()
 # X = fit.fit_transform(np.array(df.iloc[:, :-1], dtype=float))
 
-"""# Test & Training Data"""
+# """# Test & Training Data"""
 
-# Split data into training and testing sets
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
-print("Length of training set:", len(y_train))
+# # Split data into training and testing sets
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33)
+# print("Length of training set:", len(y_train))
 
-# Adjust test size for a 50/50 split between training and testing
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=seed_value)
-print("Length of training set:", len(y_train))
+# # Adjust test size for a 50/50 split between training and testing
+# X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=seed_value)
+# print("Length of training set:", len(y_train))
 
-# Define a simple neural network model
-model = Sequential([
-    Dense(512, activation='relu', input_shape=(X_train.shape[1],)),
-    Dropout(0.5),
-    Dense(256, activation='relu'),
-    Dropout(0.5),
-    Dense(128, activation='relu'),
-    Dropout(0.5),
-    Dense(64, activation='relu'),
-    Dropout(0.5),
-    Dense(10, activation="softmax"),
-])
+# # Define a simple neural network model
+# model = Sequential([
+#     Dense(512, activation='relu', input_shape=(X_train.shape[1],)),
+#     Dropout(0.5),
+#     Dense(256, activation='relu'),
+#     Dropout(0.5),
+#     Dense(128, activation='relu'),
+#     Dropout(0.5),
+#     Dense(64, activation='relu'),
+#     Dropout(0.5),
+#     Dense(10, activation="softmax"),
+# ])
 
-# Compile the model
-model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
+# # Compile the model
+# model.compile(optimizer='adam', loss='sparse_categorical_crossentropy', metrics=['accuracy'])
 
-# Set a flag to enable or disable data augmentation
-augment_data = True  # Set this to True during training
+# # Set a flag to enable or disable data augmentation
+# augment_data = True  # Set this to True during training
 
-# Load and augment audio data
-_, _, stretched_audio, pitch_shifted_audio, noisy_audio = load_and_augment_audio(audio_recording, augment=augment_data)
+# # Load and augment audio data
+# _, _, stretched_audio, pitch_shifted_audio, noisy_audio = load_and_augment_audio(audio_recording, augment=augment_data)
 
-# Ensure that the number of frames matches the original number of samples
-num_frames = X_train.shape[0]
+# # Ensure that the number of frames matches the original number of samples
+# num_frames = X_train.shape[0]
 
-# Extract MFCC features for each augmented audio and ensure matching frame count
-mfcc_stretched = librosa.feature.mfcc(y=stretched_audio, sr=sr, n_mfcc=X_train.shape[1]).T[:num_frames]
-mfcc_pitch_shifted = librosa.feature.mfcc(y=pitch_shifted_audio, sr=sr, n_mfcc=X_train.shape[1]).T[:num_frames]
-mfcc_noisy = librosa.feature.mfcc(y=noisy_audio, sr=sr, n_mfcc=X_train.shape[1]).T[:num_frames]
+# # Extract MFCC features for each augmented audio and ensure matching frame count
+# mfcc_stretched = librosa.feature.mfcc(y=stretched_audio, sr=sr, n_mfcc=X_train.shape[1]).T[:num_frames]
+# mfcc_pitch_shifted = librosa.feature.mfcc(y=pitch_shifted_audio, sr=sr, n_mfcc=X_train.shape[1]).T[:num_frames]
+# mfcc_noisy = librosa.feature.mfcc(y=noisy_audio, sr=sr, n_mfcc=X_train.shape[1]).T[:num_frames]
 
-# Use the augmented data for training
-X_train_augmented = np.vstack([X_train, mfcc_stretched, mfcc_pitch_shifted, mfcc_noisy])
-y_train_augmented = np.concatenate([y_train] * 4)  # Assuming each augmentation creates 4 new samples
+# # Use the augmented data for training
+# X_train_augmented = np.vstack([X_train, mfcc_stretched, mfcc_pitch_shifted, mfcc_noisy])
+# y_train_augmented = np.concatenate([y_train] * 4)  # Assuming each augmentation creates 4 new samples
 
-# Train the model
-history_augmented = model.fit(X_train_augmented, y_train_augmented, validation_data=(X_test, y_test), epochs=100, batch_size=128, verbose=2)
+# # Train the model
+# history_augmented = model.fit(X_train_augmented, y_train_augmented, validation_data=(X_test, y_test), epochs=100, batch_size=128, verbose=2)
 
-"""# Creating a Model"""
+# """# Creating a Model"""
 
-model.save("musicgenreclassification.h5")
+# model.save("musicgenreclassification.h5")
 
 """# Original Model Accuracy"""
 
