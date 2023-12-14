@@ -24,6 +24,7 @@ from sklearn.preprocessing import LabelEncoder
 import tensorflow as tf
 from tensorflow import keras
 import IPython
+import requests
 
 # Seed value
 seed_value = 1
