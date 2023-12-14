@@ -6,3 +6,4 @@ scikit-learn==0.24.2
 tensorflow==2.14.0
 keras
 streamlit==1.23.1
+ipython==7.34.0
