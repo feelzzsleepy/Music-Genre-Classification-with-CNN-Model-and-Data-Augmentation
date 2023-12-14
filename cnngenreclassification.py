@@ -259,7 +259,7 @@ model = load_model('cnngenreclassification.h5', compile=False) # New Model Chang
 
 #     return predicted_genre
 # New Function to preprocess audio (hope it works)
-def classify_genre(audio_path):
+def classify_genre(audio_path, X_train):
     # Load and preprocess the audio file
     data, sr = librosa.load(audio_path)
 
@@ -287,7 +287,7 @@ def main():
         st.audio(uploaded_file, format="audio/wav", start_time=0)
 
         # Perform genre classification
-        predicted_genre = classify_genre(uploaded_file)
+        predicted_genre = classify_genre(uploaded_file, X_train) #adding X_Train to train the audio
         st.write(f"Predicted Genre: {predicted_genre}")
 
 # Run the app
