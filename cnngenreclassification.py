@@ -306,7 +306,7 @@ X_train = load_training_data()
 
 # Streamlit app
 def main():
-    st.title("Music Genre Classifier")
+    st.title("Music Genre Classification Using CNN Model With Data Augmentation")
 
     # Load or define X_train before the main function
     X_train = load_training_data()
