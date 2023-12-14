@@ -242,14 +242,14 @@ from tensorflow.keras.models import load_model
 model = load_model('musicgenreclassification.h5')  # Replace with the actual model file
 
 # Function to preprocess audio and make predictions
+
 def classify_genre(audio_path):
     # Load and preprocess the audio file
-    data, sr = librosa.load(audio_path)
-    # Perform any necessary feature extraction or preprocessing
-
+    data, sr = librosa.load(audio_path, sr=None)  # Load with original sample rate
+    mfcc = librosa.feature.mfcc(y=data, sr=sr, n_mfcc=X_train.shape[1]).T
+    
     # Make predictions using your model
-    # Replace this with your actual prediction logic
-    prediction = model.predict(np.expand_dims(data, axis=0))
+    prediction = model.predict(np.expand_dims(mfcc, axis=0))
 
     # Map predictions to genre names (adjust as needed)
     genre_mapping = {0: 'Blues', 1: 'Jazz', 2: 'Rock', 3: 'Pop', 4: 'Hip-Hop'}
