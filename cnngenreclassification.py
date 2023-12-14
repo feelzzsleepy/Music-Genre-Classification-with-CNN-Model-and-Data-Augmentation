@@ -201,39 +201,39 @@ tf.compat.v1.keras.backend.set_session(sess)
 
 # model.save("musicgenreclassification.h5")
 
-"""# Original Model Accuracy"""
+# """# Original Model Accuracy"""
 
-# Evaluate the model on the test set
-test_loss, test_acc = model.evaluate(X_test, y_test, batch_size=128)
-print("Test Loss:", test_loss)
-print("Test Accuracy:", test_acc*100)
+# # Evaluate the model on the test set
+# test_loss, test_acc = model.evaluate(X_test, y_test, batch_size=128)
+# print("Test Loss:", test_loss)
+# print("Test Accuracy:", test_acc*100)
 
-# Plot model accuracy
-plt.plot(history.history['accuracy'])
-plt.plot(history.history['val_accuracy'])
-plt.title('Model Accuracy')
-plt.ylabel('Accuracy')
-plt.xlabel('Epoch')
-plt.legend(['Train', 'Validation'], loc='upper left')
-plt.show()
+# # Plot model accuracy
+# plt.plot(history.history['accuracy'])
+# plt.plot(history.history['val_accuracy'])
+# plt.title('Model Accuracy')
+# plt.ylabel('Accuracy')
+# plt.xlabel('Epoch')
+# plt.legend(['Train', 'Validation'], loc='upper left')
+# plt.show()
 
-"""# Augmented Model Accuracy"""
+# """# Augmented Model Accuracy"""
 
-# Evaluate the model on the augmented test set
-test_loss_augmented, test_acc_augmented = model.evaluate(X_test, y_test, batch_size=128)
-print("The test Loss with Augmentation is:", test_loss_augmented)
-print("The Best Accuracy with Augmentation is:", test_acc_augmented * 100)
+# # Evaluate the model on the augmented test set
+# test_loss_augmented, test_acc_augmented = model.evaluate(X_test, y_test, batch_size=128)
+# print("The test Loss with Augmentation is:", test_loss_augmented)
+# print("The Best Accuracy with Augmentation is:", test_acc_augmented * 100)
 
-# Visualize the training history with augmentation
-plt.plot(history_augmented.history['accuracy'])
-plt.plot(history_augmented.history['val_accuracy'])
-plt.title('Augmented CNN Model Accuracy')
-plt.ylabel('accuracy')
-plt.xlabel('epoch')
-plt.legend(['train', 'val'], loc='upper left')
-plt.show()
+# # Visualize the training history with augmentation
+# plt.plot(history_augmented.history['accuracy'])
+# plt.plot(history_augmented.history['val_accuracy'])
+# plt.title('Augmented CNN Model Accuracy')
+# plt.ylabel('accuracy')
+# plt.xlabel('epoch')
+# plt.legend(['train', 'val'], loc='upper left')
+# plt.show()
 
-"""# GUI for Genre Classification"""
+# """# GUI for Genre Classification"""
 
 from tensorflow.keras.models import load_model
 
