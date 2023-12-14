@@ -146,9 +146,9 @@ tf.compat.v1.keras.backend.set_session(sess)
 # print(df.iloc[:, :-1])
 
 # Standardize features using StandardScaler
-from sklearn.preprocessing import StandardScaler
-fit = StandardScaler()
-X = fit.fit_transform(np.array(df.iloc[:, :-1], dtype=float))
+# from sklearn.preprocessing import StandardScaler
+# fit = StandardScaler()
+# X = fit.fit_transform(np.array(df.iloc[:, :-1], dtype=float))
 
 """# Test & Training Data"""
 
