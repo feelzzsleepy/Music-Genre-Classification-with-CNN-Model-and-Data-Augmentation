@@ -25,6 +25,7 @@ import tensorflow as tf
 from tensorflow import keras
 import IPython
 import requests
+from io import BytesIO
 
 # Seed value
 seed_value = 1
